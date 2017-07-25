@@ -1,0 +1,80 @@
+﻿<div class="row page-titles">
+    <div class="col-md-6 col-8 align-self-center">
+        <h3 class="text-themecolor m-b-0 m-t-0">My Leave Details</h3>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-xlg-12">
+      <div class="card"">
+          <div class="card-block">
+              <h4 class="card-title">Basic Table</h4>
+              <br />
+              <div class="row">
+                  <div class="col-sm-3">
+                      <md-input-container class="md-block" flex-gt-sm>
+                          <label>Select Year</label>
+                          <md-select ng-model="leave.year">
+                              <md-option ng-repeat="year in years" ng-selected="{{year==currentYear}}" value="{{year}}">
+                                  {{year}}
+                              </md-option>
+                          </md-select>
+                      </md-input-container>
+                  </div>
+                  <div class="col-sm-3">
+                      <md-input-container class="md-block" flex-gt-sm>
+                          <label>Status</label>
+                          <md-select ng-model="leave.status">
+                              <md-option ng-repeat="st in status" ng-selected="$first" value="{{st.value}}">
+                                  {{st.text}}
+                              </md-option>
+                          </md-select>
+                      </md-input-container>
+                  </div>
+                  <div class="col-sm-3">
+                      {{leave|json}}
+                  </div>
+              </div>
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th><b>#</b></th>
+                              <th><b>From Date</b></th>
+                              <th><b>To Date</b></th>
+                              <th><b>Leave For</b></th>
+                              <th><b>Number of Day</b></th>
+                              <th><b>Apply Date</b></th>
+                              <th><b>Approve Date</b></th>
+                              <th><b>Status</b></th>
+                              <th></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr dir-paginate="leaveDetail in leaveDetails|filter:{status:leave.status}:strict|itemsPerPage:ViewPerPage">
+                              <td>{{$index}}</td>
+                              <td>{{leaveDetail.fromDate|date}}</td>
+                              <td>{{leaveDetail.toDate|date}}</td>
+                              <td>{{leaveDetail.leaveFor}}</td>
+                              <td>{{leaveDetail.numberOfDays}}</td>
+                              <td>{{leaveDetail.applyDate|date}}</td>
+                              <td>{{leaveDetail.approveDate|date}}</td>
+                              <td>{{leaveDetail.status}}</td>
+                              <td>@Genelia</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+              <div class="row">
+                  <div style="margin-left:20px;">
+                      <dir-pagination-controls max-size="10"
+                                               template-url="dirPagination.tpl.html"
+                                               direction-links="true"
+                                               boundary-links="true">
+                      </dir-pagination-controls>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
